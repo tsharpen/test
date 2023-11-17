@@ -1,10 +1,158 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello, World!</title>
+  <meta charset="UTF-8">
+  <title>Ab Workout Randomizer</title>
+  <!-- Add the viewport meta tag for responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <style>
+    body {
+      background-image: url('Background.jpg');  
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      text-align: center;
+      /* font-family: Arial, Helvetica, sans-serif; */
+    }
+
+    h1 {
+      color: white;
+      font-size: 38px;
+      font-weight: bold;
+    }
+    h2 {
+      color: white;
+      font-size: 27px;
+      text-decoration: underline;
+    }
+    p {
+      color: white;
+      font-size: 24px;
+    }
+  
+    .spinner {
+      display: none;
+      border: 4px solid rgba(0, 0, 0, 0.3);
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto;
+    }
+
+    button {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 15px 30px;
+    }-+
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Additional CSS for the result display */
+    #exerciseDisplay {
+      font-size: 60px;
+      font-weight: bold;
+      color: red;
+      /*background: rgba(0, 0, 0, 0.8); 
+      border-radius: 15px; 
+      margin-left: 400px; 
+      margin-right: 400px; 
+      padding: 0px 100px; */
+    }
+
+    /* CSS for exercise descriptions */
+    .exercise-description {
+      font-size: 18px;
+      color: white;
+      text-align: center;
+      padding: 10px 10px;
+      text-indent: 0; 
+      /*background: rgba(0, 0, 0, 0.8); 
+      border-radius: 15px; 
+      margin-left: 200px; 
+      margin-right: 200px;  */
+    }
+    
+  </style>
 </head>
 <body>
-    <h1>Hello, World! YEEEEHAWWW</h1>
-    <p>Yo, Yo, Yo</p>
+  <h1>Ab Workout Randomizer</h1>
+  <p>Click the button below to get a random ab exercise!</p>
+  <button onclick="generateRandomWorkout()">Get Random Workout</button>
+  
+  <!-- Loading Spinner -->
+  <div class="spinner" id="loadingSpinner"></div>
+
+  <p id="workoutResult">Today's exercise:</p>
+  <p id="exerciseDisplay"></p>
+  <div class="exercise-description" id="exerciseDescription">
+    <h2>Starting Position</h2>
+    <p id="startingPosition"></p>
+    <h2>Movement</h2>
+    <p id="movement"></p>
+    <h2>Standard Repetition/Duration</h2>
+    <p id="repeat"></p>
+  </div>
+
+  <script>
+    var exerciseData = [
+      { exercise: "Crunches", 
+        description: {
+          startingPosition: "Lie on your back with your knees bent and feet flat on the floor. Keep your hands gently behind your head, but don't pull on your head.",
+          movement: "Exhale and lift your head, neck, and shoulders off the ground using your abdominal muscles. Keep your chin slightly lifted to avoid straining your neck. Avoid going too high; a small, controlled movement is enough.",
+          repeat: "Do 10-20 repetitions, gradually increasing as you get more comfortable."
+        }
+      },
+      { exercise: "Leg Raises", 
+        description: {
+          startingPosition: "Lie on your back with your legs straight and your hands under your hips for support.",
+          movement: "Raise your legs, keeping them straight, until they are perpendicular to the ground.",
+          repeat: "Do 10-15 repetitions."
+        }
+      },
+      { exercise: "Russian Twists", 
+        description: {
+          startingPosition: "Sit on the floor with your knees bent and your feet off the ground. Lean back slightly to engage your core muscles.",
+          movement: "Twist your torso to one side, bringing your hands or a weight to the floor beside you. Return to the center and twist to the other side.",
+          repeat: "Do 10-15 repetitions on each side."
+        }
+      },
+
+
+      // Add more exercises and descriptions as needed
+    ];
+
+    function generateRandomWorkout() {
+      // Show the loading spinner
+      document.getElementById("loadingSpinner").style.display = "block";
+
+      // Disable the button during loading
+      document.querySelector("button").disabled = true;
+
+      // Simulate a delay (you can replace this with actual data loading)
+      setTimeout(function() {
+        var randomIndex = Math.floor(Math.random() * exerciseData.length);
+        var randomExercise = exerciseData[randomIndex];
+
+        // Hide the loading spinner
+        document.getElementById("loadingSpinner").style.display = "none";
+
+        // Enable the button again
+        document.querySelector("button").disabled = false;
+
+        // Display the exercise and description parts
+        document.getElementById("exerciseDisplay").innerText = randomExercise.exercise;
+        document.getElementById("startingPosition").innerText = randomExercise.description.startingPosition;
+        document.getElementById("movement").innerText = randomExercise.description.movement;
+        document.getElementById("repeat").innerText = randomExercise.description.repeat;
+      }, 800); // Simulated 0.8-second loading time
+    }
+  </script>
 </body>
 </html>
